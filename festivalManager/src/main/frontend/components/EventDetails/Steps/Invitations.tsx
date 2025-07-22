@@ -65,8 +65,9 @@ const InvitationAnalytics: React.FC = () => {
       setLoading(true);
       try {
         const invitations = await getEventInvitations();
-        if (!invitations) {
-          console.error('No invitations found for this event.');
+        if (!invitations || invitations.length === 0) {
+          console.info('No invitations found for this event.');
+          setInvitationData([]);
           return;
         }
         console.info('Fetched invitations:', invitations);
@@ -87,6 +88,7 @@ const InvitationAnalytics: React.FC = () => {
 
         setInvitationData(mappedInvitations);
       } catch (error) {
+        setInvitationData([]);
         console.error('Error fetching invitations:', error);
       } finally {
         setLoading(false);
@@ -94,7 +96,7 @@ const InvitationAnalytics: React.FC = () => {
     };
 
     fetchInvitations();
-  }, [getEventInvitations]);
+  }, []);
 
   // Extract unique bundles from the data for filtering
   const bundles = Array.from(new Set(invitationData.map((inv) => inv.bundle)))

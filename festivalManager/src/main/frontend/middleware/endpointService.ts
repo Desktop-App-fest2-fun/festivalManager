@@ -353,7 +353,8 @@ async function getFilteredEventItemsByOperation(eventId: string, operation: stri
     }
     const filteredItems = eventItems.filter((item) => item?.operation?.startsWith(operation));
     if (filteredItems.length === 0) {
-      throw new EndpointError('No event items found with the specified operation');
+      console.info(`No event items found with operation "${operation}" for event ${eventId}`);
+      return [];
     }
     console.info(`Filtered event items by operation "${operation}":`, filteredItems);
     return filteredItems;

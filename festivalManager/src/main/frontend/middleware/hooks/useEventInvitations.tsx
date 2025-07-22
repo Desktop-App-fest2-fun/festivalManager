@@ -43,7 +43,7 @@ const useEventInvitations = (selectedEventId: string) => {
     } finally {
       setLoading(false);
     }
-  }, [selectedEventId, invitations]);
+  }, [selectedEventId]);
 
   const createEventInvitations = useCallback(
     async (contacts: Contact[]) => {
